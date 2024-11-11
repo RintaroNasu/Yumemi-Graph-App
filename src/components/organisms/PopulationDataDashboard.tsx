@@ -13,7 +13,7 @@ const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
 }));
 
-export const PrefecturesCheckList = () => {
+export const PopulationDataDashboard = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
   const [selectedPrefectures, setSelectedPrefectures] = useState<Set<number>>(new Set());
   const [populationData, setPopulationData] = useState<PopulationData[]>([]);
