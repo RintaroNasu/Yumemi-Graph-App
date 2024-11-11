@@ -2,12 +2,12 @@
 
 import { getPopulationPerYear, getPrefectures } from "@/utils/getResasApi";
 import { useEffect, useState } from "react";
-import { PopulationButton } from "../atoms/PopulationButton";
 
 import { PrefectureCheckboxList } from "../molecules/PrefectureCheckboxList";
 import { PopulationData, Prefecture } from "@/utils/type";
 import { PopulationChart } from "./ PopulationChart";
 import { ChartTitle } from "../atoms/ChartTitle";
+import { PopulationButtonGroup } from "../molecules/PopulationButtonGroup";
 
 const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
@@ -84,12 +84,7 @@ export const PrefecturesCheckList = () => {
       <div className="mt-5">
         <ChartTitle dataTypeIndex={dataTypeIndex} />
         <PopulationChart populationData={populationData} selectedPrefectures={selectedPrefectures} colorMap={colorMap} prefectures={prefectures} />
-        <div className="flex justify-center gap-5">
-          <PopulationButton label="総人口" isActive={dataTypeIndex === 0} onClick={() => setDataTypeIndex(0)} />
-          <PopulationButton label="年少人口" isActive={dataTypeIndex === 1} onClick={() => setDataTypeIndex(1)} />
-          <PopulationButton label="生産年齢人口" isActive={dataTypeIndex === 2} onClick={() => setDataTypeIndex(2)} />
-          <PopulationButton label="老年人口" isActive={dataTypeIndex === 3} onClick={() => setDataTypeIndex(3)} />
-        </div>
+        <PopulationButtonGroup dataTypeIndex={dataTypeIndex} setDataTypeIndex={setDataTypeIndex} />
       </div>
     </>
   );
