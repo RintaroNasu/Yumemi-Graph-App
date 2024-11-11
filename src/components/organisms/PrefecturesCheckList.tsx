@@ -2,7 +2,9 @@
 
 import { getPopulationPerYear, getPrefectures } from "@/utils/getResasApi";
 import { useEffect, useState } from "react";
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+
+import { PopulationButton } from "../atoms/PopulationButton";
+import { PopulationChart } from "./ PopulationChart";
 
 type Prefecture = {
   prefCode: number;
@@ -14,7 +16,9 @@ type PopulationData = {
   [prefCode: string]: number;
 };
 
-const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({ year: 1960 + i * 5 }));
+const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
+  year: 1960 + i * 5,
+}));
 
 export const PrefecturesCheckList = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
@@ -83,7 +87,7 @@ export const PrefecturesCheckList = () => {
 
   return (
     <>
-      <div className="flex flex-wrap max-w-7xl mx-auto mt-4  rounded-lg bg-gray-50 p-5 shadow-lg">
+      <div className="flex flex-wrap max-w-7xl mx-auto mt-4 rounded-lg bg-gray-50 p-5 shadow-lg">
         <h2 className="w-full text-center text-2xl font-semibold mb-4">都道府県</h2>
         {prefectures.map((prefecture, index) => (
           <div key={index} className="flex items-center w-1/12 p-2">
@@ -99,31 +103,12 @@ export const PrefecturesCheckList = () => {
           {dataTypeIndex === 2 && "生産年齢人口推移"}
           {dataTypeIndex === 3 && "老年人口推移"}
         </div>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={populationData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" label={{ value: "年", position: "insideBottomRight", offset: -10 }} />
-            <YAxis label={{ value: "人口数", angle: -90, position: "insideLeft" }} />
-            <Tooltip />
-            <Legend />
-            {Array.from(selectedPrefectures).map((prefCode) => (
-              <Line key={prefCode} type="monotone" dataKey={prefCode} name={prefectures.find((pref) => pref.prefCode === prefCode)?.prefName} stroke={colorMap[prefCode]} dot={false} />
-            ))}
-          </LineChart>
-        </ResponsiveContainer>
+        <PopulationChart populationData={populationData} selectedPrefectures={selectedPrefectures} colorMap={colorMap} prefectures={prefectures} />
         <div className="flex justify-center gap-5">
-          <button onClick={() => setDataTypeIndex(0)} className={`rounded-[4px] font-semibold text-white px-4 py-2 transition-colors duration-200 ${dataTypeIndex === 0 ? "bg-[#2d716d]" : "bg-[rgba(0,164,150,1)] hover:bg-[#50d7cc]"}`}>
-            総人口
-          </button>
-          <button onClick={() => setDataTypeIndex(1)} className={`rounded-[4px] font-semibold text-white px-4 py-2 transition-colors duration-200 ${dataTypeIndex === 1 ? "bg-[#2d716d]" : "bg-[rgba(0,164,150,1)] hover:bg-[#50d7cc]"}`}>
-            年少人口
-          </button>
-          <button onClick={() => setDataTypeIndex(2)} className={`rounded-[4px] font-semibold text-white px-4 py-2 transition-colors duration-200 ${dataTypeIndex === 2 ? "bg-[#2d716d]" : "bg-[rgba(0,164,150,1)] hover:bg-[#50d7cc]"}`}>
-            生産年齢人口
-          </button>
-          <button onClick={() => setDataTypeIndex(3)} className={`rounded-[4px] font-semibold text-white px-4 py-2 transition-colors duration-200 ${dataTypeIndex === 3 ? "bg-[#2d716d]" : "bg-[rgba(0,164,150,1)] hover:bg-[#50d7cc]"}`}>
-            老年人口
-          </button>
+          <PopulationButton label="総人口" isActive={dataTypeIndex === 0} onClick={() => setDataTypeIndex(0)} />
+          <PopulationButton label="年少人口" isActive={dataTypeIndex === 1} onClick={() => setDataTypeIndex(1)} />
+          <PopulationButton label="生産年齢人口" isActive={dataTypeIndex === 2} onClick={() => setDataTypeIndex(2)} />
+          <PopulationButton label="老年人口" isActive={dataTypeIndex === 3} onClick={() => setDataTypeIndex(3)} />
         </div>
       </div>
     </>

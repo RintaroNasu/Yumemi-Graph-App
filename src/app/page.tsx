@@ -1,4 +1,4 @@
-import { PrefecturesCheckList } from "@/components/PrefecturesCheckList";
+import { PrefecturesCheckList } from "@/components/organisms/PrefecturesCheckList";
 
 export default function Home() {
   return (
