@@ -1,6 +1,5 @@
 import { PopulationData, Prefecture } from "@/utils/type";
-import React from "react";
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LineProps } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 type Props = {
   populationData: PopulationData[];
