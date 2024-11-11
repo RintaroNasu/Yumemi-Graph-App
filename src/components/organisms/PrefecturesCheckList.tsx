@@ -5,16 +5,7 @@ import { useEffect, useState } from "react";
 
 import { PopulationButton } from "../atoms/PopulationButton";
 import { PopulationChart } from "./ PopulationChart";
-
-type Prefecture = {
-  prefCode: number;
-  prefName: string;
-};
-
-type PopulationData = {
-  year: number;
-  [prefCode: string]: number;
-};
+import { PopulationData, Prefecture } from "@/utils/type";
 
 const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
