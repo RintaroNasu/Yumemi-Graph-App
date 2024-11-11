@@ -21,6 +21,7 @@ export const PrefecturesCheckList = () => {
   const [selectedPrefectures, setSelectedPrefectures] = useState<Set<number>>(new Set());
   const [populationData, setPopulationData] = useState<PopulationData[]>([]);
   const [dataTypeIndex, setDataTypeIndex] = useState(0);
+  const [colorMap, setColorMap] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +42,14 @@ export const PrefecturesCheckList = () => {
         newSelected.delete(prefCode);
       } else {
         newSelected.add(prefCode);
+        if (!colorMap[prefCode]) {
+          setColorMap((prevColorMap) => ({
+            ...prevColorMap,
+            [prefCode]: `#${Math.floor(Math.random() * 16777215)
+              .toString(16)
+              .padStart(6, "0")}`,
+          }));
+        }
       }
       return newSelected;
     });
@@ -98,7 +107,7 @@ export const PrefecturesCheckList = () => {
             <Tooltip />
             <Legend />
             {Array.from(selectedPrefectures).map((prefCode) => (
-              <Line key={prefCode} type="monotone" dataKey={prefCode} name={prefectures.find((pref) => pref.prefCode === prefCode)?.prefName} dot={false} />
+              <Line key={prefCode} type="monotone" dataKey={prefCode} name={prefectures.find((pref) => pref.prefCode === prefCode)?.prefName} stroke={colorMap[prefCode]} dot={false} />
             ))}
           </LineChart>
         </ResponsiveContainer>
