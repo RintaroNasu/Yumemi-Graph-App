@@ -2,10 +2,12 @@
 
 import { getPopulationPerYear, getPrefectures } from "@/utils/getResasApi";
 import { useEffect, useState } from "react";
-
 import { PopulationButton } from "../atoms/PopulationButton";
-import { PopulationChart } from "./ PopulationChart";
+
+import { PrefectureCheckboxList } from "../molecules/PrefectureCheckboxList";
 import { PopulationData, Prefecture } from "@/utils/type";
+import { PopulationChart } from "./ PopulationChart";
+import { ChartTitle } from "../atoms/ChartTitle";
 
 const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
@@ -78,22 +80,9 @@ export const PrefecturesCheckList = () => {
 
   return (
     <>
-      <div className="flex flex-wrap max-w-7xl mx-auto mt-4 rounded-lg bg-gray-50 p-5 shadow-lg">
-        <h2 className="w-full text-center text-2xl font-semibold mb-4">都道府県</h2>
-        {prefectures.map((prefecture, index) => (
-          <div key={index} className="flex items-center w-1/12 p-2">
-            <input type="checkbox" id={`pref-${prefecture.prefCode}`} className="mr-2" onChange={() => handleCheckboxChange(prefecture.prefCode)} />
-            <label htmlFor={`pref-${prefecture.prefCode}`}>{prefecture.prefName}</label>
-          </div>
-        ))}
-      </div>
+      <PrefectureCheckboxList prefectures={prefectures} onCheckboxChange={handleCheckboxChange} />
       <div className="mt-5">
-        <div className="w-full text-center text-2xl font-semibold mb-4">
-          {dataTypeIndex === 0 && "総人口推移"}
-          {dataTypeIndex === 1 && "年少人口推移"}
-          {dataTypeIndex === 2 && "生産年齢人口推移"}
-          {dataTypeIndex === 3 && "老年人口推移"}
-        </div>
+        <ChartTitle dataTypeIndex={dataTypeIndex} />
         <PopulationChart populationData={populationData} selectedPrefectures={selectedPrefectures} colorMap={colorMap} prefectures={prefectures} />
         <div className="flex justify-center gap-5">
           <PopulationButton label="総人口" isActive={dataTypeIndex === 0} onClick={() => setDataTypeIndex(0)} />
