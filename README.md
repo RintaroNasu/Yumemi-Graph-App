@@ -38,6 +38,7 @@ npm install
 ```
 3. .env ファイルをルートディレクトリに作成し、以下の内容を追加（APIキーはゆめみによって提供されています。）
 ```
+RESAS_API_URL = "https://yumemi-frontend-engineer-codecheck-api.vercel.app"
 RESAS_API_KEY = "8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ"
 ```
 4. サーバー立ち上げ
