@@ -1,26 +1,38 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
+  const url = process.env.RESAS_API_URL || "";
+  const apiKey = process.env.RESAS_API_KEY || "";
+
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("perYear");
+
   try {
-    const response = await fetch(`https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/population/composition/perYear?prefCode=${id}`, {
+    const response = await fetch(`${url}/api/v1/population/composition/perYear?prefCode=${id}`, {
       method: "GET",
+
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": process.env.RESAS_API_KEY || "",
+
+        "x-api-key": apiKey,
       },
     });
 
-    if (!response.ok) {
-      console.error(`Failed to fetch data from external API: ${response.status} ${response.statusText}`);
-      return NextResponse.json({ error: "外部APIからのデータ取得に失敗しました" }, { status: 500 });
+    const json = await response.json();
+
+    if (json?.data?.errorMessage) {
+      throw new Error(json.data.errorMessage);
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json(json);
   } catch (error) {
-    console.error("サーバーエラー:", error);
-    return NextResponse.json({ error: "データの取得に失敗しました" }, { status: 500 });
+    return NextResponse.json(
+      {
+        message: error?.toString() || error,
+      },
+      {
+        status: 400,
+      }
+    );
   }
-}
+};
