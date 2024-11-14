@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PopulationDataDashboard } from "./PopulationDataDashboard";
 import { getPrefectures, getPopulationPerYear } from "@/utils/getResasApi";
 import "@testing-library/jest-dom";
@@ -46,5 +46,18 @@ describe("PopulationDataDashboardコンポーネント", () => {
     });
 
     expect(screen.getByText("総人口推移")).toBeInTheDocument();
+  });
+
+  it("データ種別ボタンをクリックして、タイトルが変更されることを確認する", async () => {
+    render(<PopulationDataDashboard />);
+
+    expect(screen.getByText("総人口推移")).toBeInTheDocument();
+
+    const youthPopulationButton = screen.getByText("年少人口");
+    fireEvent.click(youthPopulationButton);
+
+    await waitFor(() => {
+      expect(screen.getByText("年少人口推移")).toBeInTheDocument();
+    });
   });
 });
