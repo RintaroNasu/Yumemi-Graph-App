@@ -24,7 +24,12 @@ export const PopulationDataDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/prefectures`);
+        const response = await fetch(`${baseUrl}/api/prefectures`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         const json = await response.json();
         if (!response.ok) {
@@ -65,7 +70,12 @@ export const PopulationDataDashboard = () => {
 
       try {
         for (const prefCode of selectedPrefectures) {
-          const response = await fetch(`${baseUrl}/api/population?perYear=${prefCode}`);
+          const response = await fetch(`${baseUrl}/api/population?perYear=${prefCode}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
           const population = await response.json();
 
