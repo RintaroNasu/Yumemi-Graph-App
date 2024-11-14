@@ -1,9 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PopulationDataDashboard } from "./PopulationDataDashboard";
-import { getPrefectures, getPopulationPerYear } from "@/utils/getResasApi";
 import "@testing-library/jest-dom";
-
-jest.mock("../../utils/getResasApi");
 
 beforeAll(() => {
   global.ResizeObserver = class {
@@ -11,6 +8,8 @@ beforeAll(() => {
     unobserve() {}
     disconnect() {}
   };
+
+  global.fetch = jest.fn();
 });
 
 const mockPrefectures = [
@@ -33,8 +32,25 @@ const mockPopulationData = {
 
 describe("PopulationDataDashboardコンポーネント", () => {
   beforeEach(() => {
-    (getPrefectures as jest.Mock).mockResolvedValue({ result: mockPrefectures });
-    (getPopulationPerYear as jest.Mock).mockResolvedValue(mockPopulationData);
+    (global.fetch as jest.Mock).mockImplementation((url) => {
+      if (url === "api/prefectures") {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({ result: mockPrefectures }),
+        });
+      }
+      if (url.startsWith("api/population")) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => mockPopulationData,
+        });
+      }
+      return Promise.reject(new Error("Unknown API endpoint"));
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("コンポーネントが正常にレンダリングされることを確認する", async () => {

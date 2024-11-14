@@ -12,8 +12,6 @@ const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
 }));
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
 export const PopulationDataDashboard = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
   const [selectedPrefectures, setSelectedPrefectures] = useState<Set<number>>(new Set());
@@ -24,7 +22,7 @@ export const PopulationDataDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/prefectures`);
+        const response = await fetch("api/prefectures");
 
         const json = await response.json();
         if (!response.ok) {
@@ -65,7 +63,7 @@ export const PopulationDataDashboard = () => {
 
       try {
         for (const prefCode of selectedPrefectures) {
-          const response = await fetch(`${baseUrl}/api/population?perYear=${prefCode}`);
+          const response = await fetch(`api/population?perYear=${prefCode}`);
 
           const population = await response.json();
 
