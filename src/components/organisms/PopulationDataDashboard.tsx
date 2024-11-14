@@ -1,5 +1,6 @@
 "use client";
 
+import { getPopulationPerYear, getPrefectures } from "@/utils/getResasApi";
 import { useEffect, useState } from "react";
 
 import { PrefectureCheckboxList } from "../molecules/PrefectureCheckboxList";
@@ -12,8 +13,6 @@ const INITIAL_YEARS = Array.from({ length: 18 }, (_, i) => ({
   year: 1960 + i * 5,
 }));
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
 export const PopulationDataDashboard = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
   const [selectedPrefectures, setSelectedPrefectures] = useState<Set<number>>(new Set());
@@ -24,14 +23,8 @@ export const PopulationDataDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/prefectures`);
-
-        const json = await response.json();
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        setPrefectures(json.result);
+        const prefecture = await getPrefectures();
+        setPrefectures(prefecture.result);
       } catch (error) {
         console.error("Error fetching prefectures:", error);
       }
@@ -65,10 +58,7 @@ export const PopulationDataDashboard = () => {
 
       try {
         for (const prefCode of selectedPrefectures) {
-          const response = await fetch(`${baseUrl}/api/population?perYear=${prefCode}`);
-
-          const population = await response.json();
-
+          const population = await getPopulationPerYear(prefCode);
           population.result.data[dataTypeIndex].data.forEach((item: { year: number; value: number }, index: number) => {
             if (!updatedPopulationData[index]) {
               updatedPopulationData[index] = { year: item.year };
