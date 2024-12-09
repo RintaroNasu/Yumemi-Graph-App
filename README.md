@@ -3,8 +3,7 @@
 ## 課題概要
 https://yumemi.notion.site/0e9ef27b55704d7882aab55cc86c999d
 
-## デプロイURL
-https://yumemi-graph-app.vercel.app/
+---
 
 ## アプリ詳細
 
@@ -20,10 +19,16 @@ https://yumemi-graph-app.vercel.app/
 ### デモ動画
 https://github.com/user-attachments/assets/881e5fed-2d26-4271-bb39-c46e92b6305b
 
+---
 
+## 技術スタック
+ ・フロントエンド: Next.js<br>
+ ・利用API: RESAS（地域経済分析システム）API
 
-
-
+## 本番環境
+ ・https://yumemi-graph-app.vercel.app/
+ 
+---
 
 ## 開発環境のセットアップ手順
 ローカル環境で開発サーバーを起動するための手順は以下の通りです。
@@ -45,7 +50,3 @@ RESAS_API_KEY = "8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ"
 ```
 npm run dev
 ```
-
-## 技術スタック
-・フロントエンド: Next.js<br>
-・利用API: RESAS（地域経済分析システム）API
