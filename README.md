@@ -22,7 +22,11 @@ https://github.com/user-attachments/assets/881e5fed-2d26-4271-bb39-c46e92b6305b
 ---
 
 ## 技術スタック
- ・フロントエンド: Next.js<br>
+### 使用言語
+ ・ TypeScript
+ 
+### フロントエンド
+ ・ Next.js<br>
  ・利用API: RESAS（地域経済分析システム）API
 
 ## 本番環境
