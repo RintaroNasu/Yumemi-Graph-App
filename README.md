@@ -23,13 +23,13 @@ https://github.com/user-attachments/assets/881e5fed-2d26-4271-bb39-c46e92b6305b
 
 ## 技術スタック
 ### 使用言語
-  ・[TypeScript](https://www.typescriptlang.org/)
+  ・**[TypeScript](https://www.typescriptlang.org/)**
   
 ### フロントエンド 
-  ・[React](https://ja.react.dev/): ユーザーインターフェースの構築<br>
-  ・[Next.js (App Router)](https://nextjs.org/): サーバーサイドレンダリング対応のReactフレームワーク<br>
-  ・[TailwindCSS](https://tailwindcss.com/): カスタマイズ可能なCSSユーティリティ<br>
-  ・[RESAS（地域経済分析システム）API](https://opendata.resas-portal.go.jp/): 日本の地域経済に関するデータを提供するAPI
+  ・**[React](https://ja.react.dev/)**: ユーザーインターフェースの構築<br>
+  ・**[Next.js (App Router)](https://nextjs.org/)**: サーバーサイドレンダリング対応のReactフレームワーク<br>
+  ・**[TailwindCSS](https://tailwindcss.com/)**: カスタマイズ可能なCSSユーティリティ<br>
+  ・**[RESAS（地域経済分析システム）API](https://opendata.resas-portal.go.jp/)**: 日本の地域経済に関するデータを提供するAPI
 
 ---
 
