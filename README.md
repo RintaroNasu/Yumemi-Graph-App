@@ -41,6 +41,13 @@ https://github.com/user-attachments/assets/881e5fed-2d26-4271-bb39-c46e92b6305b
 ## 開発環境のセットアップ手順
 ローカル環境で開発サーバーを起動するための手順は以下の通りです。
 
+## 前提環境
+
+本プロジェクトをローカルで実行するには、以下の環境が必要です。
+
+- Node.js（推奨: v18 以上）
+  https://nodejs.org/ja/download
+  
 1. リポジトリをクローン
 ```
 git clone https://github.com/RintaroNasu/yumemi-graph-app.git
